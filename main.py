@@ -70,10 +70,19 @@ class Project(SQLModel, table=True):
     portfolio: Portfolio | None = Relationship(back_populates="projects")
 
 
-# Engine URL comes from the environment (postgresql://... in every non-test env,
-# per ADR-0003). The SQLite fallback keeps a bare local checkout runnable; the
-# schema itself is owned by the Alembic migrations, not by create_all.
-DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///database.db")
+DEFAULT_DATABASE_URL = "sqlite:///database.db"
+
+
+def resolve_database_url() -> str:
+    """Engine URL from the environment (``postgresql://...`` in every non-test
+    env, per ADR-0003). The SQLite fallback keeps a bare local checkout
+    runnable; the schema itself is owned by the Alembic migrations, not by
+    ``create_all``.
+    """
+    return os.environ.get("DATABASE_URL", DEFAULT_DATABASE_URL)
+
+
+DATABASE_URL = resolve_database_url()
 
 connect_args = (
     {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}

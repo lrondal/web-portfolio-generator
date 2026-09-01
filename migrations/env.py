@@ -6,19 +6,14 @@ runs its migrations against the same Postgres the app will use. Importing
 autogenerate.
 """
 
-import os
-
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 from sqlmodel import SQLModel
 
-import main  # noqa: F401  -- imported for its table definitions / metadata
+import main  # imported for its table definitions and DB-URL resolution
 
 config = context.config
-config.set_main_option(
-    "sqlalchemy.url",
-    os.environ.get("DATABASE_URL", "sqlite:///database.db"),
-)
+config.set_main_option("sqlalchemy.url", main.resolve_database_url())
 
 target_metadata = SQLModel.metadata
 

@@ -1,4 +1,4 @@
-"""Public portfolio render: GET /cv/{portfolio_id}."""
+"""Public portfolio render at GET /cv/{portfolio_id} (the URL is pinned by ADR-0004)."""
 
 from conftest import SeedPortfolio
 from fastapi.testclient import TestClient
