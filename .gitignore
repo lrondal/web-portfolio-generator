@@ -6,3 +6,9 @@ database.db
 .claude/*
 !.claude/settings.json
 !.claude/hooks/
+# .claude/skills/ mirrors .agents/skills/ (matt-pocock skills, vendored
+# there as the canonical copy) plus machine-local install state -- stays
+# ignored. Only this project-authored skill is tracked.
+!.claude/skills/
+.claude/skills/*
+!.claude/skills/domain-vocabulary-check/
