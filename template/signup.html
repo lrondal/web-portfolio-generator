@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{%block title%}Sign up{%endblock%}
+
+{%block content%}
+<h3>Sign up</h3>
+{% set form_action = "/signup" %}
+{% set submit_label = "Create account" %}
+{% set require_min_length = true %}
+{% include "_auth_form.html" %}
+<p>Already have an account? <a href="/login">Log in</a>.</p>
+{%endblock%}

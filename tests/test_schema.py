@@ -15,10 +15,18 @@ def test_user_table_gone_new_tables_present() -> None:
 
 
 def test_duplicate_sign_in_email_is_rejected(session: Session) -> None:
-    session.add(Account(email="dup@example.com", display_name="A", age=20))
+    session.add(
+        Account(
+            email="dup@example.com", password_hash="x", display_name="A", age=20
+        )
+    )
     session.commit()
 
-    session.add(Account(email="dup@example.com", display_name="B", age=21))
+    session.add(
+        Account(
+            email="dup@example.com", password_hash="x", display_name="B", age=21
+        )
+    )
     with pytest.raises(IntegrityError):
         session.commit()
 

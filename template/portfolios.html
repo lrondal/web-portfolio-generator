@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{%block title%}My portfolios{%endblock%}
+
+{%block content%}
+<h3>My portfolios</h3>
+
+{% if portfolios %}
+<ul>
+  {% for portfolio in portfolios %}
+  <li><a href="/cv/{{ portfolio.portfolio_id }}">{{ portfolio.title }}</a></li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No portfolios yet.</p>
+{% endif %}
+{%endblock%}

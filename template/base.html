@@ -29,6 +29,17 @@
 <body>
   <header>
     <h1>Welcome on portfolio generator</h1>
+    <nav>
+      {% if current_account %}
+      <a href="/portfolios">My portfolios</a>
+      <form method="post" action="/logout" style="display: inline">
+        <button type="submit">Log out</button>
+      </form>
+      {% else %}
+      <a href="/login">Log in</a>
+      <a href="/signup">Sign up</a>
+      {% endif %}
+    </nav>
   </header>
 
   <div>{%block content%}{%endblock%}</div>

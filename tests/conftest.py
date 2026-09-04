@@ -14,7 +14,12 @@ from sqlalchemy.pool import StaticPool
 from sqlmodel import Session, SQLModel, create_engine
 
 import main
+from auth import hash_password
 from main import Account, Portfolio, Project, app, get_session
+
+# One bcrypt hash, computed once, for accounts seeded straight into the DB for
+# read-path tests (they never sign in, so the plaintext behind it is irrelevant).
+SEED_PASSWORD_HASH = hash_password("seed-account-password")
 
 
 @pytest.fixture(name="session")
@@ -38,6 +43,38 @@ def client_fixture(session: Session) -> Iterator[TestClient]:
     with TestClient(app) as client:
         yield client
     app.dependency_overrides.clear()
+
+
+LogInClient = Callable[..., TestClient]
+
+
+@pytest.fixture(name="logged_in_client")
+def logged_in_client_fixture(client: TestClient) -> LogInClient:
+    """Run an Account through the real signup then login routes and hand back the
+    same client, now carrying the session cookie the app set. No auth stubbing:
+    both routes are exercised and the returned cookie is what the tests use.
+    """
+
+    def _log_in(
+        email: str = "owner@example.com",
+        password: str = "password123",
+    ) -> TestClient:
+        signup = client.post(
+            "/signup",
+            data={"email": email, "password": password},
+            follow_redirects=False,
+        )
+        assert signup.status_code == 303, signup.text
+        client.post("/logout")
+        login = client.post(
+            "/login",
+            data={"email": email, "password": password},
+            follow_redirects=False,
+        )
+        assert login.status_code == 303, login.text
+        return client
+
+    return _log_in
 
 
 SeedPortfolio = Callable[..., Portfolio]
@@ -65,6 +102,7 @@ def seed_portfolio_fixture(session: Session) -> SeedPortfolio:
     ) -> Portfolio:
         account = Account(
             email=email,
+            password_hash=SEED_PASSWORD_HASH,
             display_name=display_name,
             age=age,
             contact_email=contact_email,
