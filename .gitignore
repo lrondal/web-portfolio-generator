@@ -4,3 +4,4 @@ __pycache__/
 venv/
 database.db
 .claude/
+.pytest_cache/
