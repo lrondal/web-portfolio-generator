@@ -17,7 +17,6 @@ double-checked.
 2. Get the diff you're about to commit (`git diff`, staged or working tree).
    Search it for every `_Avoid_` term as a whole word -- in identifiers,
    comments, strings, file names, and template `name=`/`src=` attributes.
-   Case-insensitive; comments and docstrings count.
 3. For each hit, decide:
    - **No ADR covers it** -> replace it with the canonical term.
    - **An ADR in `docs/adr/` explicitly names this exact usage** (e.g.
@@ -26,14 +25,10 @@ double-checked.
      actually pins down, not just the concept it's near -- an ADR covering
      one surface (a URL) doesn't license the same word on a different
      surface (a file name).
-4. Unsure whether an ADR covers a specific hit? Treat it as uncovered --
-   flag it rather than silently keeping it.
 
 See `EXAMPLE.md` for a worked case: the mistake this skill exists because of.
 
 ## Done when
 
 Every `_Avoid_` term present in the diff is either gone, or immediately
-followed by an `ADR-000X` citation. Re-grep the diff after your pass to
-confirm -- that grep coming up empty (or fully cited) is the completion
-criterion, not a sense that you probably got them.
+followed by an `ADR-000X` citation.
