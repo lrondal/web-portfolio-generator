@@ -3,6 +3,12 @@
 FastAPI + SQLModel app that stores users and their projects (SQLite) and
 renders portfolio / CV pages from Jinja2 templates.
 
+## Git workflow
+
+Agents making code edits MUST NOT commit to `main`. Create a branch first
+(e.g. `agent/<short-description>`), commit there, and open a pull request.
+Never push to `main`, force-push, or merge.
+
 ## Agent skills
 
 ### Issue tracker
