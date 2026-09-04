@@ -98,3 +98,9 @@ Go to : [http://127.0.0.1:8000](http://127.0.0.1:8000)
 The application is deployed on **Render** and accessible here :
 
 👉 [https://web-portfolio-generator.onrender.com/](https://web-portfolio-generator.onrender.com/)
+
+---
+
+## 🤖 AI Assistance
+
+This project has used **Claude Code (Sonnet 5.0)** as a coding agent to assist with development.
