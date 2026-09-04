@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{%block title%}Log in{%endblock%}
+
+{%block content%}
+<h3>Log in</h3>
+{% set form_action = "/login" %}
+{% set submit_label = "Log in" %}
+{% include "_auth_form.html" %}
+<p>No account yet? <a href="/signup">Sign up</a>.</p>
+{%endblock%}

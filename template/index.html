@@ -1,16 +1,13 @@
 {% extends "base.html" %}
 {%block content%}
-<h3>Users</h3>
-<ul
-  id="users"
-  hx-get="/userspage"
-  hx-swap="innerHTML"
-  hx-trigger="load"
->
-  <li class="htmx-indicator">Loading...</li>
-</ul>
-{%endblock%}
-
-{%block footer%}
-<a href="/add-user-page">Add user</a>
+<h3>Portfolio generator</h3>
+<p>
+  Keep one profile and publish as many public portfolios of your projects as you
+  like.
+</p>
+{% if current_account %}
+<p><a href="/portfolios">Go to my portfolios</a></p>
+{% else %}
+<p><a href="/signup">Sign up</a> or <a href="/login">log in</a> to get started.</p>
+{% endif %}
 {%endblock%}
