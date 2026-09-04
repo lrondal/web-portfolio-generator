@@ -3,4 +3,6 @@ __pycache__/
 *$py.class
 venv/
 database.db
-.claude/
+.claude/*
+!.claude/settings.json
+!.claude/hooks/
